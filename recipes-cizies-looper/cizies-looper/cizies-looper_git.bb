@@ -13,6 +13,15 @@ FILES_${PN} += "${bindir}/looper"
 
 TARGET_LDFLAGS += "-lrt -lasound -lpthread -lportaudio -lbcm2835"
 
+RDEPENDS_${PN} += " \
+	alsa-lib \
+	portaudio-v19 \
+	"
+
+DEPENDS = " \
+	bcm2835 \
+"
+
 #inherit update-rc.d
 
 #INITSCRIPT_PACKAGES = "${PN}"
