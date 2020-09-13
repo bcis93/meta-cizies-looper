@@ -4,8 +4,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 PV = "1.0+git${SRCPV}"
 
-SRC_URI = "git://git@github.com/bcis93/cizies-audio-looper.git;protocol=ssh;branch=yocto-build"
-SRCREV = "eff963fee9b4e09674279e7469930710bd514501"
+SRC_URI = "git://git@github.com/bcis93/cizies-audio-looper.git;protocol=ssh"
+SRCREV = "a9dc3de515eb9bb53e7adfec050b8efae6a4952b"
 S = "${WORKDIR}/git"
 
 FILES_${PN} += "${bindir}/looper"
@@ -16,6 +16,7 @@ TARGET_LDFLAGS += "-lrt -lasound -lpthread -lportaudio -lbcm2835"
 RDEPENDS_${PN} += " \
 	alsa-lib \
 	portaudio-v19 \
+	cizies-led-driver \
 	"
 
 DEPENDS = " \
