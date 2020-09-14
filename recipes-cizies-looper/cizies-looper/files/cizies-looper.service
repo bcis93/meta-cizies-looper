@@ -1,0 +1,11 @@
+[Unit]
+Description=Cizies Looper startup
+Requires=cizies-led-driver.service
+After=cizies-led-driver.service
+
+[Service]
+ExecStartPre=sleep 2
+ExecStart=/usr/sbin/cizies-looper
+
+[Install]
+WantedBy=multi-user.target
