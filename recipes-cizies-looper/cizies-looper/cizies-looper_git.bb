@@ -8,9 +8,9 @@ SRC_URI = "git://git@github.com/bcis93/cizies-audio-looper.git;protocol=ssh"
 SRCREV = "a9dc3de515eb9bb53e7adfec050b8efae6a4952b"
 S = "${WORKDIR}/git"
 
-SRC_URI += " file://cizies-looper.service"
+SRC_URI += " file://cizies-looper-start-stop.sh"
 
-FILES_${PN} += "${bindir}/looper"
+FILES_${PN} += "${bindir} ${sysconfdir}/init.d"
 
 TARGET_LDFLAGS += "-lrt -lasound -lpthread -lportaudio -lbcm2835"
 
@@ -24,8 +24,9 @@ DEPENDS = " \
 	bcm2835 \
 "
 
-inherit systemd
-SYSTEMD_SERVICE_${PN} = "cizies-looper.service"
+inherit update-rc.d
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME_${PN} = "cizies-looper-start-stop.sh"
 
 do_configure () {
 	:
@@ -39,6 +40,6 @@ do_install () {
 	install -d ${D}${bindir}
 	install -m 0755 ${S}/looper ${D}${bindir}/cizies-looper
 
-    install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/cizies-looper.service ${D}${systemd_system_unitdir}
+    install -d ${D}${sysconfdir}/init.d
+	install -m 0755 ${WORKDIR}/cizies-looper-start-stop.sh ${D}${sysconfdir}/init.d
 }

@@ -1,8 +1,0 @@
-[Unit]
-Description=Cizies LED Driver startup
-
-[Service]
-ExecStart=/usr/sbin/cizies-led-driver
-
-[Install]
-WantedBy=multi-user.target

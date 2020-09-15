@@ -8,14 +8,9 @@ SRC_URI = "git://git@github.com/bcis93/cizies-audio-looper.git;protocol=ssh"
 SRCREV = "a9dc3de515eb9bb53e7adfec050b8efae6a4952b"
 S = "${WORKDIR}/git/tlc59711"
 
-SRC_URI += " file://cizies-led-driver.service"
-
 FILES_${PN} += "${bindir}/led_driver"
 
 TARGET_LDFLAGS += "-lbcm2835"
-
-inherit systemd
-SYSTEMD_SERVICE_${PN} = "cizies-led-driver.service"
 
 do_configure () {
 	:
@@ -28,7 +23,4 @@ do_compile () {
 do_install () {
 	install -d ${D}${bindir}
 	install -m 0755 ${S}/led_driver ${D}${bindir}/cizies-led-driver
-
-    install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/cizies-led-driver.service ${D}${systemd_system_unitdir}
 }
