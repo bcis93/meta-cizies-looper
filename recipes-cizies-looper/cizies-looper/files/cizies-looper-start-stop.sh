@@ -4,7 +4,10 @@ case "$1" in
         /usr/bin/cizies-led-driver &
         sleep 2
         echo "Starting cizies-looper"
-        /usr/bin/cizies-looper &
+        # TODO: find a better fix than changing permissions here...
+        umask 000
+        chmod +rw /dev/gpiomem
+        su cizies -c /usr/bin/cizies-looper & # run as cizies
         ;;
     stop)
         echo "Stopping cizies-looper"
